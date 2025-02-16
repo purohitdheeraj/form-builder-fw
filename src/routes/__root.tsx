@@ -7,7 +7,7 @@ export const Route = createRootRoute({
 
     return (
       <>
-        <div className="min-h-screen max-w-[1236px] mx-auto">
+        <div className="min-h-screen max-w-screen-xl mx-auto">
           <div className="border border-b-transparent flex flex-col ">
             <Outlet />
           </div>

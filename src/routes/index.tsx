@@ -46,7 +46,7 @@ function Index() {
 
           <div className="flex justify-center mt-8">
             <Link to="/create-form">
-              <Button size={'sm'} className='bg-gray-900 text-white hover:bg-black'>Get Started</Button>
+              <Button size={'lg'} className='bg-gray-900 text-[18px] text-white hover:bg-black'>Get Started</Button>
             </Link>
           </div>
         </div>
