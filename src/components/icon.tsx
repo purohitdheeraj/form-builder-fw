@@ -11,7 +11,7 @@ type Icons = {
   [key: string]: JSX.Element;
 }
 
-export type IconName = "number" | "date" | "draft" | "gripVertical" | "longAnswer" | "shortAnswer" | "singleSelect" | "url" | 'check';
+export type IconName = "number" | "date" | "draft" | "gripVertical" | "text" | "shortAnswer" | "select" | "url" | 'check';
 
 const Icon = ({ name, color = "currentColor", fill = true, width = 24, height = 24 }: IconProps & { name: IconName }) => {
   const icons: Icons = {
@@ -78,7 +78,7 @@ const Icon = ({ name, color = "currentColor", fill = true, width = 24, height = 
         />
       </>
     ),
-    longAnswer: (
+    text: (
       <>
         <path d="M2.5 5H10.8333" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
         <path d="M2.5 10H17.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
@@ -91,7 +91,7 @@ const Icon = ({ name, color = "currentColor", fill = true, width = 24, height = 
         <path d="M2.5 12.5H17.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
       </>
     ),
-    singleSelect: (
+    select: (
       <>
         <g clipPath="url(#clip0)">
           <path

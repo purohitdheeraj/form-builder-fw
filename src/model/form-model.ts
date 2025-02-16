@@ -8,8 +8,8 @@ export type ValidationRules = {
 export type FormQuestion = {
   id: string;
   type: 'text' | 'number' | 'select';
-  label: string;
-  helperText: string;
+  title: string;
+  sub_title: string;
   options?: string[];
   validations?: ValidationRules;
   value?: string | number;
