@@ -29,7 +29,7 @@ const Question = ({
   const [localType, setLocalType] = useState(type);
   const [localTitle, setLocalTitle] = useState(title);
   const [localSubtitle, setLocalSubtitle] = useState(sub_title);
-  const [options, setOptions] = useState(["", ""]); // Options for single-select
+  const [options, setOptions] = useState(["", ""]);
 
   // Notify parent whenever local state changes
   useEffect(() => {
@@ -61,7 +61,7 @@ const Question = ({
       <Button variant={'ghost'} className=" flex" onClick={() => onDelete(id)}>
         <Trash2 className="text-gray-500" />
       </Button>
-      <div className="border  space-y-1 p-4 bg-gray-00  max-w-[692px] w-full hover:bg-gray-50 transition-all duration-300 ease-in-out">
+      <div className="border space-y-1 p-4 bg-gray-00  max-w-[692px] w-full hover:bg-gray-50 transition-all duration-300 ease-in-out">
         <div className="flex items-center space-x-2 justify-between">
           <div className="flex-grow space-y-1">
             <input

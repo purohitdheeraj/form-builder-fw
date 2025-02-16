@@ -1,23 +1,42 @@
 import Question from '@/components/question'
 import { Button } from '@/components/ui/button'
+import usePersistentState from '@/hooks/usePersistentState'
 import { FormQuestion } from '@/model/form-model'
 import { createFileRoute } from '@tanstack/react-router'
 import { ArrowUpRight, Plus, Send } from 'lucide-react'
-import { useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 
 export const Route = createFileRoute('/create-form')({
-  component: About,
+  component: CreateForm,
 })
 
-function About() {
+function CreateForm() {
   const [formTitle, setFormTitle] = useState('')
-  const [questions, setQuestions] = useState<FormQuestion[]>([]);
+
+  const [questions, setQuestions, clearQuestions, saveStatus] = usePersistentState<FormQuestion[]>(
+    "form-questions",
+    []
+  );
+
+  const formTitleRef = useRef<HTMLInputElement>(null);
+
 
   const handleUpdateQuestion = (questionId: string, data: FormQuestion) => {
-    setQuestions((prev) =>
-      prev.map((q) => (q.id === questionId ? { ...q, ...data } : q))
-    );
+    setQuestions((prev) => {
+      const updatedQuestions = prev.map((q) => (q.id === questionId ? { ...q, ...data } : q));
+      return updatedQuestions;
+    });
   };
+
+
+
+  useEffect(() => {
+    if (formTitleRef.current) {
+      formTitleRef.current.focus();
+    }
+
+    console.log('render')
+  }, []);
 
 
   const addQuestion = () => {
@@ -42,11 +61,16 @@ function About() {
         type="text"
         placeholder="Untitled form"
         value={formTitle}
+        ref={formTitleRef}
         onChange={(e) => setFormTitle(e.target.value)}
         className={`font-semibold ${formTitle ? "text-gray-1k" : "text-gray-400"
           } bg-transparent border-none outline-none w-full`}
       />
       <div className='flex items-center gap-3'>
+
+        <div className="text-sm text-gray-500">
+          {saveStatus === "saving" ? "Saving" : saveStatus === "saved" ? "Saved" : ""}
+        </div>
 
         <Button
           size={"sm"}
