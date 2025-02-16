@@ -7,7 +7,7 @@ export const Route = createRootRoute({
 
     return (
       <>
-        <div className="min-h-screen  container ">
+        <div className="min-h-screen max-w-[620px] mx-auto border">
           <header>I am Header</header>
           <Outlet />
           <footer>Footer</footer>
