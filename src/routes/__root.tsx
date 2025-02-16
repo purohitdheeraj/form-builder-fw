@@ -7,7 +7,7 @@ export const Route = createRootRoute({
 
     return (
       <>
-        <div className="min-h-screen border container">
+        <div className="min-h-screen  container ">
           <header>I am Header</header>
           <Outlet />
           <footer>Footer</footer>
