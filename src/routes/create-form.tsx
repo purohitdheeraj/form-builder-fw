@@ -20,7 +20,6 @@ function About() {
   };
 
 
-
   const addQuestion = () => {
     const newQuestion: FormQuestion = {
       id: String(Date.now()),
@@ -71,7 +70,7 @@ function About() {
       </div>
     </header>
 
-    <div className='space-y-4 mt-10 grid place-items-center'>
+    <div className='space-y-4 mt-10'>
       {questions.map((question) => (
         <Question
           key={question.id}
