@@ -13,8 +13,12 @@ export const Route = createFileRoute("/create-form")({
 function CreateForm() {
   const [formTitle, setFormTitle] = useState("");
 
-  const [questions, setQuestions, clearQuestions, saveStatus] =
-    usePersistentState<FormQuestion[]>("form-questions", []);
+
+
+  const [questions, setQuestions, , saveStatus] = usePersistentState<FormQuestion[]>(
+    "form-questions",
+    []
+  );
 
   const formTitleRef = useRef<HTMLInputElement>(null);
 
@@ -59,9 +63,8 @@ function CreateForm() {
           value={formTitle}
           ref={formTitleRef}
           onChange={(e) => setFormTitle(e.target.value)}
-          className={`font-semibold ${
-            formTitle ? "text-gray-1k" : "text-gray-400"
-          } bg-transparent border-none outline-none w-full`}
+          className={`font-semibold ${formTitle ? "text-gray-1k" : "text-gray-400"
+            } bg-transparent border-none outline-none w-full`}
         />
         <div className="flex items-center gap-3">
           <div className="text-sm text-gray-500">
@@ -74,7 +77,7 @@ function CreateForm() {
 
           <Button
             size={"sm"}
-            onClick={() => {}}
+            onClick={() => { }}
             variant={"outline"}
             className="shadow-none font-semibold"
           >
@@ -83,7 +86,7 @@ function CreateForm() {
           </Button>
           <Button
             size={"sm"}
-            onClick={() => {}}
+            onClick={() => { }}
             className="shadow-none font-semibold"
           >
             <span>Publish</span>
