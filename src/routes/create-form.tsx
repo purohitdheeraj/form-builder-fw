@@ -2,7 +2,7 @@ import Question from '@/components/question'
 import { Button } from '@/components/ui/button'
 import { FormQuestion } from '@/model/form-model'
 import { createFileRoute } from '@tanstack/react-router'
-import { ArrowUpRight, Send } from 'lucide-react'
+import { ArrowUpRight, Plus, Send } from 'lucide-react'
 import { useState } from 'react'
 
 export const Route = createFileRoute('/create-form')({
@@ -19,6 +19,8 @@ function About() {
     );
   };
 
+
+
   const addQuestion = () => {
     const newQuestion: FormQuestion = {
       id: String(Date.now()),
@@ -29,6 +31,7 @@ function About() {
 
     setQuestions(prev => [...prev, newQuestion])
   }
+
 
   const handleDeleteQuestion = (questionId: string) => {
     setQuestions((prev) => prev.filter((q) => q.id !== questionId));
@@ -83,7 +86,9 @@ function About() {
     </div>
 
     <div className='grid place-items-center py-10'>
-      <Button variant={'outline'} onClick={addQuestion}>Add Question</Button>
+      <Button variant={'outline'} onClick={addQuestion}>
+        <Plus />
+        Add Question</Button>
     </div>
 
 

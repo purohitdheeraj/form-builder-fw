@@ -32,14 +32,18 @@ const Question = ({
 
   // Notify parent whenever local state changes
   useEffect(() => {
-    updateQuestion(id, {
-      id,
-      type: localType,
-      title: localTitle,
-      sub_title: localSubtitle,
-      options: localType === "select" ? options : undefined, // Send options only for single select
-    });
-  }, [id, updateQuestion, localType, localTitle, localSubtitle, options]);
+    const handleUpdate = () => {
+      updateQuestion(id, {
+        id,
+        type: localType,
+        title: localTitle,
+        sub_title: localSubtitle,
+        options: localType === "select" ? options : undefined,
+      });
+    };
+
+    handleUpdate();
+  }, [localType, localTitle, localSubtitle, options]);
 
   const handleOptionChange = (index: number, value: string) => {
     const updatedOptions = [...options];
