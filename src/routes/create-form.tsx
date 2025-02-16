@@ -1,7 +1,7 @@
 import { createFileRoute } from '@tanstack/react-router'
 import toast from 'react-hot-toast'
 
-export const Route = createFileRoute('/about')({
+export const Route = createFileRoute('/create-form')({
   component: About,
 })
 
