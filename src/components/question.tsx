@@ -17,14 +17,13 @@ type QuestionPropsType = {
   onDelete: (id: string) => void;
 } & FormQuestion;
 
-
 const Question = ({
   id,
   type,
   title,
   sub_title,
   updateQuestion,
-  onDelete
+  onDelete,
 }: QuestionPropsType) => {
   const [localType, setLocalType] = useState(type);
   const [localTitle, setLocalTitle] = useState(title);
@@ -58,7 +57,7 @@ const Question = ({
 
   return (
     <div className="flex items-end w-full  justify-center">
-      <Button variant={'ghost'} className=" flex" onClick={() => onDelete(id)}>
+      <Button variant={"ghost"} className=" flex" onClick={() => onDelete(id)}>
         <Trash2 className="text-gray-500" />
       </Button>
       <div className="border space-y-1 p-4 bg-gray-00  max-w-[692px] w-full hover:bg-gray-50 transition-all duration-300 ease-in-out">
@@ -69,8 +68,9 @@ const Question = ({
               placeholder="Write a question"
               value={localTitle}
               onChange={(e) => setLocalTitle(e.target.value)}
-              className={`font-semibold ${localTitle ? "text-gray-1k" : "text-gray-400"
-                } bg-transparent border-none outline-none w-full text-sm flex-grow `}
+              className={`font-semibold ${
+                localTitle ? "text-gray-1k" : "text-gray-400"
+              } bg-transparent border-none outline-none w-full text-sm flex-grow `}
             />
             {/* Subtitle Input */}
             <input
@@ -78,8 +78,9 @@ const Question = ({
               placeholder="Write a help text or caption (leave empty if not needed)"
               value={localSubtitle}
               onChange={(e) => setLocalSubtitle(e.target.value)}
-              className={`font-normal text-xs ${localSubtitle ? "text-gray-1k" : "text-gray-400"
-                } bg-transparent border-none outline-none w-full`}
+              className={`font-normal text-xs ${
+                localSubtitle ? "text-gray-1k" : "text-gray-400"
+              } bg-transparent border-none outline-none w-full`}
             />
           </div>
           <div className="flex items-center text-gray-1k">
@@ -88,7 +89,9 @@ const Question = ({
               currentType={inputTypes.find((item) => item.name === localType)}
               triggerType="icon"
               inputTypes={inputTypes}
-              setQuestionType={(item) => setLocalType(item.name as "number" | "text" | "select")}
+              setQuestionType={(item) =>
+                setLocalType(item.name as "number" | "text" | "select")
+              }
             />
           </div>
         </div>
@@ -145,7 +148,6 @@ const Question = ({
           )}
         </div>
       </div>
-
     </div>
   );
 };

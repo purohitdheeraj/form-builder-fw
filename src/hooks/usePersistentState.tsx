@@ -3,14 +3,21 @@ import { debounce } from "@/utils/debounce";
 
 const usePersistentState = <T,>(
   localStorageKey: string,
-  defaultValue: T
-): [T, Dispatch<SetStateAction<T>>, () => void, "idle" | "saving" | "saved"] => {
+  defaultValue: T,
+): [
+  T,
+  Dispatch<SetStateAction<T>>,
+  () => void,
+  "idle" | "saving" | "saved",
+] => {
   const [value, setValue] = useState<T>(() => {
     const storedValue = localStorage.getItem(localStorageKey);
     return storedValue ? JSON.parse(storedValue) : defaultValue;
   });
 
-  const [saveStatus, setSaveStatus] = useState<"idle" | "saving" | "saved">("idle");
+  const [saveStatus, setSaveStatus] = useState<"idle" | "saving" | "saved">(
+    "idle",
+  );
 
   // Debounced localStorage save
   const debouncedSave = debounce((newValue: unknown) => {

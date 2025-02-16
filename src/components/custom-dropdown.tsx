@@ -19,30 +19,34 @@ type InputType = {
 interface DropdownProps {
   inputTypes: InputType[];
   setQuestionType: (item: InputType) => void;
-  triggerType: 'icon' | 'button';
+  triggerType: "icon" | "button";
   currentType?: InputType;
 }
 
-const Dropdown = ({ inputTypes, setQuestionType, currentType }: DropdownProps) => {
-  const [selectedItem, setSelectedItem] = useState<InputType | null>(currentType || inputTypes[0]);
+const Dropdown = ({
+  inputTypes,
+  setQuestionType,
+  currentType,
+}: DropdownProps) => {
+  const [selectedItem, setSelectedItem] = useState<InputType | null>(
+    currentType || inputTypes[0],
+  );
 
   const handleSelect = (item: InputType) => {
     setSelectedItem(() => item);
     setQuestionType(item);
   };
 
-
   return (
     <DropdownMenu modal={false}>
       <DropdownMenuTrigger className="flex items-center gap-1 text-gray-400 outline-none">
         <Icon
-          name={selectedItem?.name as IconName || "shortAnswer"}
+          name={(selectedItem?.name as IconName) || "shortAnswer"}
           fill={selectedItem?.fill !== undefined ? selectedItem.fill : false}
           width={20}
           height={20}
         />
         <ChevronDown className="w-5 h-5" strokeWidth={1.5} />
-
       </DropdownMenuTrigger>
       <DropdownMenuContent
         align="start"
@@ -57,7 +61,12 @@ const Dropdown = ({ inputTypes, setQuestionType, currentType }: DropdownProps) =
             key={index}
             onClick={() => handleSelect(item)}
           >
-            <Icon name={item.name as IconName} fill={item.fill} width={20} height={20} />
+            <Icon
+              name={item.name as IconName}
+              fill={item.fill}
+              width={20}
+              height={20}
+            />
             {item.label}
           </DropdownMenuItem>
         ))}

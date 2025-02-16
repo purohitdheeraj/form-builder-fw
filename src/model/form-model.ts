@@ -7,7 +7,7 @@ export type ValidationRules = {
 
 export type FormQuestion = {
   id: string;
-  type: 'text' | 'number' | 'select';
+  type: "text" | "number" | "select";
   title: string;
   sub_title: string;
   options?: string[];
@@ -19,4 +19,4 @@ export type FormSchema = {
   title: string;
   questions: FormQuestion[];
   updatedAt?: Date;
-}
+};
