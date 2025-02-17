@@ -26,12 +26,17 @@ const Question = ({
   updateQuestion,
   onDelete,
   validations,
+  options: selectOptions,
 }: QuestionPropsType) => {
 
   const [localType, setLocalType] = useState(type);
   const [localTitle, setLocalTitle] = useState(title);
   const [localSubtitle, setLocalSubtitle] = useState(sub_title);
-  const [options, setOptions] = useState(["", ""]);
+  const [options, setOptions] = useState(() => {
+    return type === "select" && (selectOptions && selectOptions.length > 0)
+      ? selectOptions
+      : ["", ""];
+  });
   const [isRequired, setIsRequired] = useState(validations?.required || false);
 
   useEffect(() => {

@@ -2,18 +2,24 @@ import Question from "@/components/question";
 import { Button } from "@/components/ui/button";
 import usePersistentState from "@/hooks/usePersistentState";
 import { FormQuestion } from "@/model/form-model";
+import { validateQuestions } from "@/utils/validate";
 import { createFileRoute } from "@tanstack/react-router";
-import { ArrowUpRight, Plus, Send } from "lucide-react";
-import { useEffect, useRef, useState } from "react";
+import { ArrowUpRight, Plus } from "lucide-react";
+import { useEffect, useRef } from "react";
+import toast from "react-hot-toast";
+import { useNavigate } from '@tanstack/react-router'
 
 export const Route = createFileRoute("/create-form")({
   component: CreateForm,
 });
 
 function CreateForm() {
-  const [formTitle, setFormTitle] = useState("");
+  const navigate = useNavigate({ from: '/create-form' })
 
-
+  const [formTitle, setFormTitle, , saveStatusTitle] = usePersistentState(
+    "form-title",
+    ''
+  );;
 
   const [questions, setQuestions, , saveStatus] = usePersistentState<FormQuestion[]>(
     "form-questions",
@@ -25,7 +31,7 @@ function CreateForm() {
   const handleUpdateQuestion = (questionId: string, data: FormQuestion) => {
     setQuestions((prev) => {
       const updatedQuestions = prev.map((q) =>
-        q.id === questionId ? { ...q, ...data, validations: { ...q.validations, ...data.validations } } : q,
+        q.id === questionId ? { ...q, ...data, validations: { ...q.validations, ...data.validations }, options: data.options ?? q.options, } : q,
       );
       return updatedQuestions;
     });
@@ -68,30 +74,39 @@ function CreateForm() {
         />
         <div className="flex items-center gap-3">
           <div className="text-sm text-gray-500">
-            {saveStatus === "saving"
+            {saveStatus === "saving" || saveStatusTitle === "saving"
               ? "Saving"
-              : saveStatus === "saved"
+              : saveStatus === "saved" || saveStatusTitle === "saved"
                 ? "Saved"
                 : ""}
           </div>
 
           <Button
             size={"sm"}
-            onClick={() => { }}
+            disabled={questions.length <= 0}
+            onClick={() => {
+              if (formTitle.trim() === "") {
+                toast.error("Please add a title to publish your form");
+                return;
+              }
+
+              if (validateQuestions(questions)) {
+                navigate({
+                  to: '/preview',
+                })
+
+              } else {
+                toast.error("Please ensure all questions have titles and options (if applicable).");
+              }
+            }}
             variant={"outline"}
             className="shadow-none font-semibold"
           >
             <span>Preview</span>
             <ArrowUpRight size={16} />
           </Button>
-          <Button
-            size={"sm"}
-            onClick={() => { }}
-            className="shadow-none font-semibold"
-          >
-            <span>Publish</span>
-            <Send size={16} />
-          </Button>
+
+        
         </div>
       </header>
 
@@ -104,6 +119,8 @@ function CreateForm() {
             title={question.title}
             sub_title={question.sub_title}
             updateQuestion={handleUpdateQuestion}
+            options={question.options || []}
+            validations={question.validations}
             onDelete={() => handleDeleteQuestion(question.id)}
           />
         ))}
