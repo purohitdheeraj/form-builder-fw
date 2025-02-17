@@ -25,7 +25,7 @@ function CreateForm() {
   const handleUpdateQuestion = (questionId: string, data: FormQuestion) => {
     setQuestions((prev) => {
       const updatedQuestions = prev.map((q) =>
-        q.id === questionId ? { ...q, ...data } : q,
+        q.id === questionId ? { ...q, ...data, validations: { ...q.validations, ...data.validations } } : q,
       );
       return updatedQuestions;
     });

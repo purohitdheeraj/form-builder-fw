@@ -5,6 +5,7 @@ import { Plus, Trash2 } from "lucide-react";
 import { Button } from "./ui/button";
 import { Textarea } from "./ui/textarea";
 import { FormQuestion } from "@/model/form-model";
+import { Switch } from "./ui/switch";
 
 const inputTypes = [
   { label: "Text", name: "text", fill: false },
@@ -24,11 +25,18 @@ const Question = ({
   sub_title,
   updateQuestion,
   onDelete,
+  validations,
 }: QuestionPropsType) => {
+
   const [localType, setLocalType] = useState(type);
   const [localTitle, setLocalTitle] = useState(title);
   const [localSubtitle, setLocalSubtitle] = useState(sub_title);
   const [options, setOptions] = useState(["", ""]);
+  const [isRequired, setIsRequired] = useState(validations?.required || false);
+
+  useEffect(() => {
+    updateQuestion(id, { id, type, title, sub_title, validations: { required: isRequired } });
+  }, [isRequired]);
 
   // Notify parent whenever local state changes
   useEffect(() => {
@@ -39,6 +47,7 @@ const Question = ({
         title: localTitle,
         sub_title: localSubtitle,
         options: localType === "select" ? options : undefined,
+
       });
     };
 
@@ -68,9 +77,8 @@ const Question = ({
               placeholder="Write a question"
               value={localTitle}
               onChange={(e) => setLocalTitle(e.target.value)}
-              className={`font-semibold ${
-                localTitle ? "text-gray-1k" : "text-gray-400"
-              } bg-transparent border-none outline-none w-full text-sm flex-grow `}
+              className={`font-semibold ${localTitle ? "text-gray-1k" : "text-gray-400"
+                } bg-transparent border-none outline-none w-full text-sm flex-grow `}
             />
             {/* Subtitle Input */}
             <input
@@ -78,9 +86,8 @@ const Question = ({
               placeholder="Write a help text or caption (leave empty if not needed)"
               value={localSubtitle}
               onChange={(e) => setLocalSubtitle(e.target.value)}
-              className={`font-normal text-xs ${
-                localSubtitle ? "text-gray-1k" : "text-gray-400"
-              } bg-transparent border-none outline-none w-full`}
+              className={`font-normal text-xs ${localSubtitle ? "text-gray-1k" : "text-gray-400"
+                } bg-transparent border-none outline-none w-full`}
             />
           </div>
           <div className="flex items-center text-gray-1k">
@@ -147,6 +154,16 @@ const Question = ({
             <Input disabled type="number" placeholder="" />
           )}
         </div>
+
+        {/* required not required */}
+        <div className="py-2">
+
+          <div className="flex justify-end gap-3">
+            <label className="text-sm text-gray-700">Required</label>
+            <Switch checked={isRequired} onCheckedChange={setIsRequired} />
+          </div>
+        </div>
+
       </div>
     </div>
   );
