@@ -1,8 +1,7 @@
 ## Form Builder
---
 
 ## Features
-= Inputs - text, number, select
+- Inputs - text, number, select
 - Autosave
 - Preview
 - Edit Form
