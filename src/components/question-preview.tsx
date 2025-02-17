@@ -20,7 +20,6 @@ const QuestionPreview = ({ title, sub_title, type, options, response, validation
 
       </h3>
 
-      {/* Subtitle / Help Text */}
       {sub_title && <p className="text-sm text-gray-600">{sub_title}</p>}
 
       {/* Render input based on type */}
