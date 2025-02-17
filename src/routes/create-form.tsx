@@ -7,31 +7,37 @@ import { createFileRoute } from "@tanstack/react-router";
 import { ArrowUpRight, Plus } from "lucide-react";
 import { useEffect, useRef } from "react";
 import toast from "react-hot-toast";
-import { useNavigate } from '@tanstack/react-router'
+import { useNavigate } from "@tanstack/react-router";
 
 export const Route = createFileRoute("/create-form")({
   component: CreateForm,
 });
 
 function CreateForm() {
-  const navigate = useNavigate({ from: '/create-form' })
+  const navigate = useNavigate({ from: "/create-form" });
 
   const [formTitle, setFormTitle, , saveStatusTitle] = usePersistentState(
     "form-title",
-    ''
-  );;
-
-  const [questions, setQuestions, , saveStatus] = usePersistentState<FormQuestion[]>(
-    "form-questions",
-    []
+    "",
   );
+
+  const [questions, setQuestions, , saveStatus] = usePersistentState<
+    FormQuestion[]
+  >("form-questions", []);
 
   const formTitleRef = useRef<HTMLInputElement>(null);
 
   const handleUpdateQuestion = (questionId: string, data: FormQuestion) => {
     setQuestions((prev) => {
       const updatedQuestions = prev.map((q) =>
-        q.id === questionId ? { ...q, ...data, validations: { ...q.validations, ...data.validations }, options: data.options ?? q.options, } : q,
+        q.id === questionId
+          ? {
+              ...q,
+              ...data,
+              validations: { ...q.validations, ...data.validations },
+              options: data.options ?? q.options,
+            }
+          : q,
       );
       return updatedQuestions;
     });
@@ -69,8 +75,9 @@ function CreateForm() {
           value={formTitle}
           ref={formTitleRef}
           onChange={(e) => setFormTitle(e.target.value)}
-          className={`font-semibold ${formTitle ? "text-gray-1k" : "text-gray-400"
-            } bg-transparent border-none outline-none w-full`}
+          className={`font-semibold ${
+            formTitle ? "text-gray-1k" : "text-gray-400"
+          } bg-transparent border-none outline-none w-full`}
         />
         <div className="flex items-center gap-3">
           <div className="text-sm text-gray-500">
@@ -92,11 +99,12 @@ function CreateForm() {
 
               if (validateQuestions(questions)) {
                 navigate({
-                  to: '/preview',
-                })
-
+                  to: "/preview",
+                });
               } else {
-                toast.error("Please ensure all questions have titles and options (if applicable).");
+                toast.error(
+                  "Please ensure all questions have titles and options (if applicable).",
+                );
               }
             }}
             variant={"outline"}
@@ -105,8 +113,6 @@ function CreateForm() {
             <span>Preview</span>
             <ArrowUpRight size={16} />
           </Button>
-
-        
         </div>
       </header>
 

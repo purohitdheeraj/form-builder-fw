@@ -10,104 +10,104 @@
 
 // Import Routes
 
-import { Route as rootRoute } from './routes/__root'
-import { Route as PreviewImport } from './routes/preview'
-import { Route as CreateFormImport } from './routes/create-form'
-import { Route as IndexImport } from './routes/index'
+import { Route as rootRoute } from "./routes/__root";
+import { Route as PreviewImport } from "./routes/preview";
+import { Route as CreateFormImport } from "./routes/create-form";
+import { Route as IndexImport } from "./routes/index";
 
 // Create/Update Routes
 
 const PreviewRoute = PreviewImport.update({
-  id: '/preview',
-  path: '/preview',
+  id: "/preview",
+  path: "/preview",
   getParentRoute: () => rootRoute,
-} as any)
+} as any);
 
 const CreateFormRoute = CreateFormImport.update({
-  id: '/create-form',
-  path: '/create-form',
+  id: "/create-form",
+  path: "/create-form",
   getParentRoute: () => rootRoute,
-} as any)
+} as any);
 
 const IndexRoute = IndexImport.update({
-  id: '/',
-  path: '/',
+  id: "/",
+  path: "/",
   getParentRoute: () => rootRoute,
-} as any)
+} as any);
 
 // Populate the FileRoutesByPath interface
 
-declare module '@tanstack/react-router' {
+declare module "@tanstack/react-router" {
   interface FileRoutesByPath {
-    '/': {
-      id: '/'
-      path: '/'
-      fullPath: '/'
-      preLoaderRoute: typeof IndexImport
-      parentRoute: typeof rootRoute
-    }
-    '/create-form': {
-      id: '/create-form'
-      path: '/create-form'
-      fullPath: '/create-form'
-      preLoaderRoute: typeof CreateFormImport
-      parentRoute: typeof rootRoute
-    }
-    '/preview': {
-      id: '/preview'
-      path: '/preview'
-      fullPath: '/preview'
-      preLoaderRoute: typeof PreviewImport
-      parentRoute: typeof rootRoute
-    }
+    "/": {
+      id: "/";
+      path: "/";
+      fullPath: "/";
+      preLoaderRoute: typeof IndexImport;
+      parentRoute: typeof rootRoute;
+    };
+    "/create-form": {
+      id: "/create-form";
+      path: "/create-form";
+      fullPath: "/create-form";
+      preLoaderRoute: typeof CreateFormImport;
+      parentRoute: typeof rootRoute;
+    };
+    "/preview": {
+      id: "/preview";
+      path: "/preview";
+      fullPath: "/preview";
+      preLoaderRoute: typeof PreviewImport;
+      parentRoute: typeof rootRoute;
+    };
   }
 }
 
 // Create and export the route tree
 
 export interface FileRoutesByFullPath {
-  '/': typeof IndexRoute
-  '/create-form': typeof CreateFormRoute
-  '/preview': typeof PreviewRoute
+  "/": typeof IndexRoute;
+  "/create-form": typeof CreateFormRoute;
+  "/preview": typeof PreviewRoute;
 }
 
 export interface FileRoutesByTo {
-  '/': typeof IndexRoute
-  '/create-form': typeof CreateFormRoute
-  '/preview': typeof PreviewRoute
+  "/": typeof IndexRoute;
+  "/create-form": typeof CreateFormRoute;
+  "/preview": typeof PreviewRoute;
 }
 
 export interface FileRoutesById {
-  __root__: typeof rootRoute
-  '/': typeof IndexRoute
-  '/create-form': typeof CreateFormRoute
-  '/preview': typeof PreviewRoute
+  __root__: typeof rootRoute;
+  "/": typeof IndexRoute;
+  "/create-form": typeof CreateFormRoute;
+  "/preview": typeof PreviewRoute;
 }
 
 export interface FileRouteTypes {
-  fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/create-form' | '/preview'
-  fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/create-form' | '/preview'
-  id: '__root__' | '/' | '/create-form' | '/preview'
-  fileRoutesById: FileRoutesById
+  fileRoutesByFullPath: FileRoutesByFullPath;
+  fullPaths: "/" | "/create-form" | "/preview";
+  fileRoutesByTo: FileRoutesByTo;
+  to: "/" | "/create-form" | "/preview";
+  id: "__root__" | "/" | "/create-form" | "/preview";
+  fileRoutesById: FileRoutesById;
 }
 
 export interface RootRouteChildren {
-  IndexRoute: typeof IndexRoute
-  CreateFormRoute: typeof CreateFormRoute
-  PreviewRoute: typeof PreviewRoute
+  IndexRoute: typeof IndexRoute;
+  CreateFormRoute: typeof CreateFormRoute;
+  PreviewRoute: typeof PreviewRoute;
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   CreateFormRoute: CreateFormRoute,
   PreviewRoute: PreviewRoute,
-}
+};
 
 export const routeTree = rootRoute
   ._addFileChildren(rootRouteChildren)
-  ._addFileTypes<FileRouteTypes>()
+  ._addFileTypes<FileRouteTypes>();
 
 /* ROUTE_MANIFEST_START
 {

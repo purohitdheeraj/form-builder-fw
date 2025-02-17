@@ -18,13 +18,15 @@ function Preview() {
   const [formTitle] = usePersistentState("form-title", "");
   const [questions] = usePersistentState<FormQuestion[]>("form-questions", []);
 
-  const [responses, setResponses] = useState<{ question: string; answer: string }[]>([]);
-  const [errors, setErrors] = useState<{ [key: string]: string }>({}); // Store errors
+  const [responses, setResponses] = useState<
+    { question: string; answer: string }[]
+  >([]);
+  const [errors, setErrors] = useState<{ [key: string]: string }>({});
 
   const handleResponseChange = (question: FormQuestion, value: string) => {
     setResponses((prev) => {
       const updatedResponses = prev.map((resp) =>
-        resp.question === question.title ? { ...resp, answer: value } : resp
+        resp.question === question.title ? { ...resp, answer: value } : resp,
       );
 
       if (!updatedResponses.some((resp) => resp.question === question.title)) {
@@ -44,7 +46,12 @@ function Preview() {
     const validationErrors: { [key: string]: string } = {};
 
     questions.forEach((question) => {
-      if (question.validations?.required && !responses.some((resp) => resp.question === question.title && resp.answer.trim())) {
+      if (
+        question.validations?.required &&
+        !responses.some(
+          (resp) => resp.question === question.title && resp.answer.trim(),
+        )
+      ) {
         validationErrors[question.title] = "This question is required.";
         hasError = true;
       }
@@ -65,7 +72,9 @@ function Preview() {
   return (
     <>
       <header className="py-3 px-6 flex items-center space-x-2 justify-between border-b sticky top-0 z-10 backdrop-blur-sm">
-        <h1 className="text-lg font-semibold">{formTitle || "Untitled Form"}</h1>
+        <h1 className="text-lg font-semibold">
+          {formTitle || "Untitled Form"}
+        </h1>
 
         <div className="flex gap-2">
           <Button variant="outline" onClick={() => router.history.back()}>
@@ -91,7 +100,10 @@ function Preview() {
             <div key={question.title} className="w-full flex justify-center">
               <QuestionPreview
                 {...question}
-                response={responses.find((resp) => resp.question === question.title)?.answer || ""}
+                response={
+                  responses.find((resp) => resp.question === question.title)
+                    ?.answer || ""
+                }
                 onChange={(value) => handleResponseChange(question, value)}
               />
               {/* Display error message if validation fails */}
