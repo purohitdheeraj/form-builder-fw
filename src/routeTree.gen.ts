@@ -11,11 +11,18 @@
 // Import Routes
 
 import { Route as rootRoute } from './routes/__root'
+import { Route as SubmitFormImport } from './routes/submit-form'
 import { Route as PreviewImport } from './routes/preview'
 import { Route as CreateFormImport } from './routes/create-form'
 import { Route as IndexImport } from './routes/index'
 
 // Create/Update Routes
+
+const SubmitFormRoute = SubmitFormImport.update({
+  id: '/submit-form',
+  path: '/submit-form',
+  getParentRoute: () => rootRoute,
+} as any)
 
 const PreviewRoute = PreviewImport.update({
   id: '/preview',
@@ -60,6 +67,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PreviewImport
       parentRoute: typeof rootRoute
     }
+    '/submit-form': {
+      id: '/submit-form'
+      path: '/submit-form'
+      fullPath: '/submit-form'
+      preLoaderRoute: typeof SubmitFormImport
+      parentRoute: typeof rootRoute
+    }
   }
 }
 
@@ -69,12 +83,14 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/create-form': typeof CreateFormRoute
   '/preview': typeof PreviewRoute
+  '/submit-form': typeof SubmitFormRoute
 }
 
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/create-form': typeof CreateFormRoute
   '/preview': typeof PreviewRoute
+  '/submit-form': typeof SubmitFormRoute
 }
 
 export interface FileRoutesById {
@@ -82,14 +98,15 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/create-form': typeof CreateFormRoute
   '/preview': typeof PreviewRoute
+  '/submit-form': typeof SubmitFormRoute
 }
 
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/create-form' | '/preview'
+  fullPaths: '/' | '/create-form' | '/preview' | '/submit-form'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/create-form' | '/preview'
-  id: '__root__' | '/' | '/create-form' | '/preview'
+  to: '/' | '/create-form' | '/preview' | '/submit-form'
+  id: '__root__' | '/' | '/create-form' | '/preview' | '/submit-form'
   fileRoutesById: FileRoutesById
 }
 
@@ -97,12 +114,14 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   CreateFormRoute: typeof CreateFormRoute
   PreviewRoute: typeof PreviewRoute
+  SubmitFormRoute: typeof SubmitFormRoute
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   CreateFormRoute: CreateFormRoute,
   PreviewRoute: PreviewRoute,
+  SubmitFormRoute: SubmitFormRoute,
 }
 
 export const routeTree = rootRoute
@@ -117,7 +136,8 @@ export const routeTree = rootRoute
       "children": [
         "/",
         "/create-form",
-        "/preview"
+        "/preview",
+        "/submit-form"
       ]
     },
     "/": {
@@ -128,6 +148,9 @@ export const routeTree = rootRoute
     },
     "/preview": {
       "filePath": "preview.tsx"
+    },
+    "/submit-form": {
+      "filePath": "submit-form.tsx"
     }
   }
 }

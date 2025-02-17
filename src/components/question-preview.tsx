@@ -8,19 +8,28 @@ type QuestionPreviewProps = FormQuestion & {
   onChange: (value: string) => void;
 };
 
-const QuestionPreview = ({ title, sub_title, type, options, response, validations, onChange }: QuestionPreviewProps) => {
+const QuestionPreview = ({
+  title,
+  sub_title,
+  type,
+  options,
+  response,
+  validations,
+  onChange,
+}: QuestionPreviewProps) => {
   const [selectedOption, setSelectedOption] = useState(response);
 
   return (
     <div className="border p-4 max-w-[692px] w-full bg-gray-50 rounded-lg shadow-sm">
       {/* Question Title */}
-      <h3 className="font-semibold text-gray-800">{title}
+      <h3 className="font-semibold text-gray-800">
+        {title}
 
-        <span className="text-red-500">{validations?.required ? ' * ' : null}</span>
-
+        <span className="text-red-500">
+          {validations?.required ? " * " : null}
+        </span>
       </h3>
 
-      {/* Subtitle / Help Text */}
       {sub_title && <p className="text-sm text-gray-600">{sub_title}</p>}
 
       {/* Render input based on type */}
@@ -41,13 +50,17 @@ const QuestionPreview = ({ title, sub_title, type, options, response, validation
             value={response}
             onChange={(e) => onChange(e.target.value)}
             placeholder="Enter a number"
+            min={0}
           />
         )}
 
         {type === "select" && (
           <div className="space-y-2">
             {options?.map((option, index) => (
-              <label key={index} className="flex items-center gap-2 cursor-pointer">
+              <label
+                key={index}
+                className="flex items-center gap-2 cursor-pointer"
+              >
                 <input
                   type="radio"
                   name="select"
