@@ -50,6 +50,7 @@ const QuestionPreview = ({
             value={response}
             onChange={(e) => onChange(e.target.value)}
             placeholder="Enter a number"
+            min={0}
           />
         )}
 

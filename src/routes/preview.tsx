@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import usePersistentState from "@/hooks/usePersistentState";
 import { FormQuestion } from "@/model/form-model";
@@ -7,6 +7,7 @@ import { Send } from "lucide-react";
 import toast from "react-hot-toast";
 import QuestionPreview from "@/components/question-preview";
 import { useRouter } from "@tanstack/react-router";
+import { useNavigate } from "@tanstack/react-router";
 
 export const Route = createFileRoute("/preview")({
   component: Preview,
@@ -14,6 +15,8 @@ export const Route = createFileRoute("/preview")({
 
 function Preview() {
   const router = useRouter();
+  const navigate = useNavigate({ from: "/preview" });
+
 
   const [formTitle] = usePersistentState("form-title", "");
   const [questions] = usePersistentState<FormQuestion[]>("form-questions", []);
@@ -62,12 +65,12 @@ function Preview() {
       toast.error("Please answer all required questions.");
     } else {
       toast.success("Form submitted successfully!");
+      navigate({
+        to: "/submit-form",
+      });
     }
   };
 
-  useEffect(() => {
-    console.log("Form Responses:", responses);
-  }, [responses]);
 
   return (
     <>
@@ -92,12 +95,12 @@ function Preview() {
         </div>
       </header>
 
-      <div className="space-y-8 my-6 px-6 mx-auto w-full ">
+      <div className="space-y-8 my-6 px-6 ">
         {questions.length === 0 ? (
           <p className="text-gray-500">No questions added yet.</p>
         ) : (
           questions.map((question) => (
-            <div key={question.title} className="w-full flex justify-center">
+            <div key={question.title} className="max-w-[692px] mx-auto ">
               <QuestionPreview
                 {...question}
                 response={
@@ -108,7 +111,7 @@ function Preview() {
               />
               {/* Display error message if validation fails */}
               {errors[question.title] && (
-                <p className="text-red-500 text-sm">{errors[question.title]}</p>
+                <p className="text-red-500 self-start  text-sm">{errors[question.title]}</p>
               )}
             </div>
           ))

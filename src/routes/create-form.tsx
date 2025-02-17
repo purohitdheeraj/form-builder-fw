@@ -48,7 +48,6 @@ function CreateForm() {
       formTitleRef.current.focus();
     }
 
-    console.log("render");
   }, []);
 
   const addQuestion = () => {
@@ -130,7 +129,7 @@ function CreateForm() {
             onDelete={() => handleDeleteQuestion(question.id)}
           />
         ))}
-      </div>
+    </div>
 
       <div className="grid place-items-center py-10">
         <Button variant={"outline"} onClick={addQuestion}>
